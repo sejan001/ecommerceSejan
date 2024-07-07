@@ -9,7 +9,6 @@ import 'package:barcode_widget/barcode_widget.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 
-
 class ProductDetailScreen extends StatefulWidget {
   final productId;
 
@@ -22,9 +21,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   late PageController _pageController;
   double _currentPage = 0.0;
-  bool isVisible = true; 
-  bool showAnimation = true; 
-  
+  bool isVisible = true;
+  bool showAnimation = true;
 
   @override
   void initState() {
@@ -36,12 +34,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       });
     });
 
-   
-    BlocProvider.of<ProductsBloc>(context).add(FetchProducts(
-     filterModel: FilterProductStateModel(
-    
-     )
-    ));
+    BlocProvider.of<ProductsBloc>(context)
+        .add(FetchProducts(filterModel: FilterProductStateModel()));
   }
 
   @override
@@ -64,8 +58,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             );
           } else if (state is ProductsLoaded) {
-            final product = state.products.firstWhere((e) => e.id == widget.productId,
-                );
+            final product = state.products.firstWhere(
+              (e) => e.id == widget.productId,
+            );
             if (product == null) {
               return Center(child: Text('Product not found'));
             }
@@ -233,8 +228,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       child: TyperAnimatedTextKit(
                                         isRepeatingAnimation: false,
                                         speed: Duration(milliseconds: 10),
-                                        textStyle:
-                                            TextStyle(fontWeight: FontWeight.w500),
+                                        textStyle: TextStyle(
+                                            fontWeight: FontWeight.w500),
                                         text: [product.description.toString()],
                                       ),
                                     ),
@@ -366,7 +361,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             children: [
                               Container(
                                 height: height * 0.2,
-                                child: Image.network(product.meta!.qrCode.toString()),
+                                child: Image.network(
+                                    product.meta!.qrCode.toString()),
                               ),
                               SizedBox(width: width * 0.1),
                               Container(
