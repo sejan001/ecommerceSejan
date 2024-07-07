@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _InitialScreenState extends State<InitialScreen> {
     {
       'imageUrl':
           'https://lottie.host/35f9b231-9f9a-4d3a-9711-c3687ef39794/WrL29uGXSt.json',
-      'text': 'Lets Goo!',
+      'text': 'Explore!',
       'subtitle':
           "Experience seamless and secure transactions with multiple payment options. Shop with confidence!"
     },
@@ -39,17 +40,18 @@ class _InitialScreenState extends State<InitialScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-                height: height * .9,
+                height: height * .8,
                 width: width * .9,
                 child: PageView.builder(
                     onPageChanged: (value) {
                       setState(() {
-                        value = dotPosition;
+                        dotPosition = value;
                       });
                     },
                     scrollDirection: Axis.horizontal,
@@ -59,21 +61,50 @@ class _InitialScreenState extends State<InitialScreen> {
                         child: _pages(
                             pages[index]['imageUrl'].toString(),
                             pages[index]['text'].toString(),
-                            pages[index]['subtitle'].toString()),
+                            pages[index]['subtitle'].toString(),
+                            height,
+                            width),
                       );
                     })),
           ),
-          DotsIndicator(
-            position: dotPosition,
-            dotsCount: 3,
-          )
+          Center(
+            child: DotsIndicator(
+              decorator: DotsDecorator(activeColor: Colors.orange),
+              position: dotPosition,
+              dotsCount: 3,
+            ),
+          ),
+          if (dotPosition == 2)
+            Center(
+                child: TextButton(
+              onPressed: () {
+                context.go("/login");
+              },
+              child: Text(
+                "Lets Go!",
+                style: TextStyle(
+                  color: Colors.orangeAccent,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 25,
+                ),
+              ),
+              style: ButtonStyle(
+                  fixedSize:
+                      WidgetStatePropertyAll(Size(width * .6, height * .09))),
+            )),
         ],
       ),
     );
   }
 }
 
-Widget _pages(String image, String Title, String subtitle) {
+Widget _pages(
+  String image,
+  String Title,
+  String subtitle,
+  double width,
+  double height,
+) {
   return Center(
     child: Container(
       child: Column(
@@ -81,21 +112,26 @@ Widget _pages(String image, String Title, String subtitle) {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-              height: 300, width: 300, child: LottieBuilder.network(image)),
+              height: height * .6,
+              width: width * .8,
+              child: LottieBuilder.network(image)),
           Text(
             Title,
             style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 25,
-            ),
+                fontWeight: FontWeight.w800,
+                fontSize: 25,
+                decoration: TextDecoration.underline),
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: 10,
+            height: height * .05,
           ),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 15, color: Colors.orange),
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.orange,
+            ),
             textAlign: TextAlign.center,
           )
         ],

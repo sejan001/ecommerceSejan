@@ -11,6 +11,7 @@ class MyAppRouter extends StatelessWidget {
   final GoRouter _goRouter = GoRouter(routes: [
     GoRoute(path: '/', builder: (context, state) => InitialScreen()),
     GoRoute(path: '/homeScreen', builder: (context, state) => HomeScreen()),
+    GoRoute(path: "/login", builder: (context, state) => Login()),
     GoRoute(
         path: '/detailsScreen/:id',
         builder: (context, state) {
