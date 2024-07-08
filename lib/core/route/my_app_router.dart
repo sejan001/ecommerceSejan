@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/login_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/home_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/initial_screen.dart';
@@ -9,17 +12,30 @@ class MyAppRouter extends StatelessWidget {
   MyAppRouter({super.key});
 
   final GoRouter _goRouter = GoRouter(routes: [
-    GoRoute(path: '/', builder: (context, state) => InitialScreen()),
-    GoRoute(path: '/homeScreen', builder: (context, state) => HomeScreen()),
+    GoRoute(
+        path: '/',
+        builder: (context, state) => HomeScreen(
+              user: User(
+                  id: 1,
+                  username: "username",
+                  email: "email",
+                  firstName: "firstName",
+                  lastName: "lastName",
+                  gender: "gender",
+                  token: "token"),
+            )),
+    GoRoute(
+        path: '/homeScreen/:user',
+        builder: (context, state) {
+          final String userJson = state.pathParameters['user'] ?? '';
+          final User user = User.fromJson(jsonDecode(userJson));
+          return HomeScreen(user: user);
+        }),
     GoRoute(path: "/login", builder: (context, state) => Login()),
     GoRoute(
         path: '/detailsScreen/:id',
-        builder: (context, state) {
-          final id = state.pathParameters['id'];
-          return ProductDetailScreen(
-            productId: id,
-          );
-        })
+        builder: (context, state) =>
+            ProductDetailScreen(id: state.pathParameters["id"]!))
   ]);
 
   @override

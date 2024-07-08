@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -66,7 +67,8 @@ class _LoginState extends State<Login> {
             backgroundColor: Colors.red,
           ));
         } else if (state is AuthSuccess) {
-          context.go("/homeScreen");
+          final userJson = jsonEncode(state.user.toJson());
+          context.go("/homeScreen/${Uri.encodeComponent(userJson)}");
         }
       },
       child: Scaffold(

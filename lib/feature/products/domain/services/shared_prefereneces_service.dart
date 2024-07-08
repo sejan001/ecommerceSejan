@@ -14,4 +14,12 @@ class SharedPreferenecesService {
   static String? getString({required String key}) {
     return _pref?.getString(key);
   }
+
+  static void removeString({required String key}) {
+    _pref!.remove(key);
+  }
+
+  static void isLoggedIn({required String key, bool? value}) {
+    _pref!.setBool(key, value!);
+  }
 }

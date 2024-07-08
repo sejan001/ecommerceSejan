@@ -5,7 +5,6 @@ import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
-import 'package:project_bloc/feature/products/presentation/product_details_bloc/product_details_bloc.dart';
 
 import 'core/route/my_app_router.dart';
 
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ProductDetailsBloc()),
         BlocProvider(create: (context) => ProductsBloc(FilterProductsCubit())),
         BlocProvider(create: (context) => FilterProductsCubit()),
         BlocProvider(create: (context) => AuthBloc()),

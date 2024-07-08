@@ -8,11 +8,12 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
+import 'package:project_bloc/feature/products/domain/model/product_model.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  final productId;
+  final id;
 
-  const ProductDetailScreen({Key? key, this.productId}) : super(key: key);
+  const ProductDetailScreen({Key? key, this.id}) : super(key: key);
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -26,6 +27,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   void initState() {
+    BlocProvider.of<ProductsBloc>(context)
+        .add(FetchProducts(filterModel: FilterProductStateModel()));
     super.initState();
     _pageController = PageController();
     _pageController.addListener(() {
@@ -33,9 +36,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         _currentPage = _pageController.page!;
       });
     });
-
-    BlocProvider.of<ProductsBloc>(context)
-        .add(FetchProducts(filterModel: FilterProductStateModel()));
   }
 
   @override
@@ -59,8 +59,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             );
           } else if (state is ProductsLoaded) {
             final product = state.products.firstWhere(
-              (e) => e.id == widget.productId,
-            );
+                (e) => e.id.toString() == widget.id.toString(),
+                orElse: () => Products());
             if (product == null) {
               return Center(child: Text('Product not found'));
             }

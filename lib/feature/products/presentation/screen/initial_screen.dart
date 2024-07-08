@@ -43,10 +43,21 @@ class _InitialScreenState extends State<InitialScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
+          Align(
+              alignment: Alignment.topRight,
+              child: SafeArea(
+                  child: TextButton(
+                      onPressed: () {
+                        context.go("/login");
+                      },
+                      child: Text(
+                        "skip",
+                        style: TextStyle(fontSize: 17, color: Colors.pink),
+                      )))),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-                height: height * .8,
+                height: height * .7,
                 width: width * .9,
                 child: PageView.builder(
                     onPageChanged: (value) {
@@ -133,7 +144,7 @@ Widget _pages(
               color: Colors.orange,
             ),
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     ),

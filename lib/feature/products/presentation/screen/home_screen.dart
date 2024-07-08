@@ -5,12 +5,14 @@ import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_events.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
+import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/widget/add_products.dart';
 import 'package:project_bloc/feature/products/presentation/widget/products_list.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final User user;
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -168,9 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       onChanged: (value) {
-                        FilterProductStateModel filterState = context
-                            .read<FilterProductsCubit>()
-                            .state as FilterProductStateModel;
+                        FilterProductStateModel filterState =
+                            context.read<FilterProductsCubit>().state;
 
                         BlocProvider.of<ProductsBloc>(context).add(
                           FetchProducts(
@@ -198,9 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      FilterProductStateModel filterState = context
-                          .read<FilterProductsCubit>()
-                          .state as FilterProductStateModel;
+                      FilterProductStateModel filterState =
+                          context.read<FilterProductsCubit>().state;
 
                       BlocProvider.of<ProductsBloc>(context).add(
                         FetchProducts(

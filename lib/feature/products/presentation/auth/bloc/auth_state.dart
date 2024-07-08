@@ -12,10 +12,8 @@ final class AuthInitial extends AuthState {}
 final class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  var username;
-
-  var Token;
-  AuthSuccess({required this.username, required this.Token});
+  User user;
+  AuthSuccess({required this.user});
 }
 
 class AuthFailure extends AuthState {

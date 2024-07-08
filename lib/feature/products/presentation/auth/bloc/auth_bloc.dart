@@ -24,8 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       SharedPreferenecesService.setString(key: 'token', value: user.token);
       final Sejan = SharedPreferenecesService.getString(key: 'token');
-      print("aayo tokken $Sejan");
-      emit(AuthSuccess(username: user.username, Token: user.token));
+      emit(AuthSuccess(user: user));
     } catch (e) {
       emit(AuthFailure(error: "wrong username or password"));
       print("error token aayo $e");

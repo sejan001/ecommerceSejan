@@ -9,8 +9,8 @@ class ProductsBloc extends Bloc<ProductsEvents, ProductsState> {
   final FilterProductsCubit searchProductsCubit;
   ProductsBloc(this.searchProductsCubit) : super(ProductsInitial()) {
     on<FetchProducts>(_onFetchProducts);
-    on<AddProduct>(_addProduct);
-    on<DeleteProduct>(_deleteProduct);
+    // on<AddProduct>(_addProduct);
+    // on<DeleteProduct>(_deleteProduct);
   }
 }
 
@@ -18,33 +18,33 @@ Future<void> _onFetchProducts(
     FetchProducts event, Emitter<ProductsState> emit) async {
   emit(ProductsLoading());
   try {
-    print("Fetched products with name: ${event.filterModel.searchQuery} ");
+    print("Fetched products with name: ${event.filterModel.id} ");
 
     final List<Products> products = await ProductsRepository().fetchProducts(
       model: event.filterModel,
     );
-    print("filter hoo ${event.filterModel.limit}");
+    print("filter hoo ${event.filterModel.searchQuery}");
     emit(ProductsLoaded(products: products));
   } catch (e) {
     emit(ProductsError("Failed to fetch products: $e"));
   }
 }
 
-Future<void> _addProduct(AddProduct event, Emitter<ProductsState> emit) async {
-  try {
-    final product = await ProductsRepository().addProduct(
-        event.title.toString(),
-        event.category,
-        event.description,
-        event.thumbnail);
-  } catch (e) {}
-}
+// Future<void> _addProduct(AddProduct event, Emitter<ProductsState> emit) async {
+//   try {
+//     final product = await ProductsRepository().addProduct(
+//         event.title.toString(),
+//         event.category,
+//         event.description,
+//         event.thumbnail);
+//   } catch (e) {}
+// }
 
-Future<void> _deleteProduct(
-    DeleteProduct event, Emitter<ProductsState> emit) async {
-  try {
-    final product = await ProductsRepository().deleteProduct(event.id);
-  } catch (e) {
-    print("oo $e");
-  }
-}
+// Future<void> _deleteProduct(
+//     DeleteProduct event, Emitter<ProductsState> emit) async {
+//   try {
+//     final product = await ProductsRepository().deleteProduct(event.id);
+//   } catch (e) {
+//     print("oo $e");
+//   }
+// }
