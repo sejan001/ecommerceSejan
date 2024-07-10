@@ -1,10 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:lottie/lottie.dart';
 
 import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_state.dart';
+import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
+import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
+import 'package:project_bloc/feature/products/presentation/bloc/carts_event.dart';
+import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
 
 Widget ProductsList() {
   return BlocBuilder<ProductsBloc, ProductsState>(
@@ -31,15 +38,43 @@ Widget ProductsList() {
                   ),
                   itemCount: state.products.length,
                   itemBuilder: (context, index) {
+                    final userString =
+                        SharedPreferenecesService.getString(key: "currentUser");
+                    final userMap =
+                        jsonDecode(userString!) as Map<String, dynamic>;
+                    final currentUser = User.fromJson(userMap);
                     final product = state.products[index];
                     return GestureDetector(
                       onTap: () {
                         print(product.id);
-                        context.go('/detailsScreen/${product.id}');
+                        // context.go('/detailsScreen/${product.id}');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailScreen(id: product.id)));
                       },
                       child: Card(
                         child: Column(
                           children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                  onPressed: () {
+                                    BlocProvider.of<CartsBloc>(context).add(
+                                        AddProduct(
+                                            id: product.id,
+                                            title: product.title,
+                                            price: product.price,
+                                            quantity:
+                                                product.minimumOrderQuantity,
+                                            discountPercentage:
+                                                product.discountPercentage,
+                                            thumbnail: product.thumbnail,
+                                            userId: currentUser.id));
+                                  },
+                                  icon: Icon(Icons.favorite_border)),
+                            ),
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(

@@ -1,14 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_events.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_state.dart';
+import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
+    as C;
 import 'package:project_bloc/feature/products/domain/repo/product_repo.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
+import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 
 class ProductsBloc extends Bloc<ProductsEvents, ProductsState> {
   final FilterProductsCubit searchProductsCubit;
   ProductsBloc(this.searchProductsCubit) : super(ProductsInitial()) {
     on<FetchProducts>(_onFetchProducts);
+
     // on<AddProduct>(_addProduct);
     // on<DeleteProduct>(_deleteProduct);
   }
@@ -29,6 +33,7 @@ Future<void> _onFetchProducts(
     emit(ProductsError("Failed to fetch products: $e"));
   }
 }
+
 
 // Future<void> _addProduct(AddProduct event, Emitter<ProductsState> emit) async {
 //   try {

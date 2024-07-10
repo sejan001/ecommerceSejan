@@ -25,6 +25,6 @@ class AddProduct extends ProductsEvents {
 }
 
 class DeleteProduct extends ProductsEvents {
-  String id;
+  String? id;
   DeleteProduct({required this.id});
 }

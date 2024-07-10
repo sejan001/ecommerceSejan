@@ -7,23 +7,24 @@ import 'package:project_bloc/feature/products/presentation/auth/bloc/login_scree
 import 'package:project_bloc/feature/products/presentation/screen/home_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/initial_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
+import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
 
 class MyAppRouter extends StatelessWidget {
   MyAppRouter({super.key});
 
   final GoRouter _goRouter = GoRouter(routes: [
-    GoRoute(
-        path: '/',
-        builder: (context, state) => HomeScreen(
-              user: User(
-                  id: 1,
-                  username: "username",
-                  email: "email",
-                  firstName: "firstName",
-                  lastName: "lastName",
-                  gender: "gender",
-                  token: "token"),
-            )),
+    GoRoute(path: '/', builder: (context, state) => InitialScreen()
+        // builder: (context, state) => ProfileTab(
+        //       user: User(
+        //           id: 1,
+        //           username: "username",
+        //           email: "email",
+        //           firstName: "firstName",
+        //           lastName: "lastName",
+        //           gender: "gender",
+        //           token: "token"),
+        //     )),
+        ),
     GoRoute(
         path: '/homeScreen/:user',
         builder: (context, state) {
@@ -32,6 +33,12 @@ class MyAppRouter extends StatelessWidget {
           return HomeScreen(user: user);
         }),
     GoRoute(path: "/login", builder: (context, state) => Login()),
+    GoRoute(
+        path: "/profileTab:user",
+        builder: (context, state) {
+          final User user = state.pathParameters["user"] as User;
+          return ProfileTab(user: user);
+        }),
     GoRoute(
         path: '/detailsScreen/:id',
         builder: (context, state) =>

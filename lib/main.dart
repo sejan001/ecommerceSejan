@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
+import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 
 import 'core/route/my_app_router.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProductsBloc(FilterProductsCubit())),
         BlocProvider(create: (context) => FilterProductsCubit()),
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => CartsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

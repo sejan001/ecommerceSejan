@@ -73,12 +73,6 @@ class _LoginState extends State<Login> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: isDark ? Colors.white : Colors.black,
-          ),
-          backgroundColor: Colors.white,
-        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
@@ -120,7 +114,7 @@ class _LoginState extends State<Login> {
                                 fontSize: 18,
                               ),
                               validator: (value) {
-                                if (value!.length > 10) {
+                                if (value!.length > 100) {
                                   return "Cant have more than 10 letters";
                                 }
                                 if (value.length <= 0 || value.isEmpty) {
@@ -155,7 +149,7 @@ class _LoginState extends State<Login> {
                               ),
                               obscureText: _showPass,
                               validator: (value) {
-                                if (value!.length > 10) {
+                                if (value!.length > 100) {
                                   return "Cant have more than 10 letters";
                                 }
                                 if (value!.length <= 0 || value.isEmpty) {

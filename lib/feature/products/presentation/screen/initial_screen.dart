@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -35,6 +39,26 @@ class _InitialScreenState extends State<InitialScreen> {
           "Experience seamless and secure transactions with multiple payment options. Shop with confidence!"
     },
   ];
+  @override
+  void initState() {
+    super.initState();
+    checkToken();
+  }
+
+  void checkToken() async {
+    final token = await SharedPreferenecesService.getString(key: 'token');
+    final userJson =
+        await SharedPreferenecesService.getString(key: "currentUser");
+
+    if (token != null && userJson != null) {
+      final user = User.fromJson(jsonDecode(userJson));
+      GoRouter.of(context)
+          .go("/homeScreen/${Uri.encodeComponent(jsonEncode(user.toJson()))}");
+    } else {
+      GoRouter.of(context).go("/");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

@@ -7,8 +7,10 @@ import 'package:project_bloc/feature/products/Products/Bloc/products_events.dart
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
-import 'package:project_bloc/feature/products/presentation/widget/add_products.dart';
+import 'package:project_bloc/feature/products/presentation/widget/cartsScreen.dart';
+
 import 'package:project_bloc/feature/products/presentation/widget/products_list.dart';
+import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -24,15 +26,19 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _skipController = TextEditingController();
   int _selectedIndex = 0;
 
-  static List<Widget> _pages = [
-    ProductsList(),
-    AddProducts(),
-    Center(child: Text("Profile Page")),
-  ];
+  static List<Widget> _pages = [];
 
   @override
   void initState() {
     super.initState();
+    print("user hoooo ${widget.user.firstName}");
+    _pages = [
+      ProductsList(),
+      CartsTab(user: widget.user),
+      ProfileTab(
+        user: widget.user,
+      )
+    ];
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       BlocProvider.of<ProductsBloc>(context)
           .add(FetchProducts(filterModel: FilterProductStateModel()));
@@ -107,9 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 final int skip = int.tryParse(_skipController.text) ?? 0;
                 context.read<FilterProductsCubit>().updateLimit(limit);
                 context.read<FilterProductsCubit>().updateSkip(skip.toString());
-                FilterProductStateModel filterState = context
-                    .read<FilterProductsCubit>()
-                    .state as FilterProductStateModel;
+                FilterProductStateModel filterState =
+                    context.read<FilterProductsCubit>().state;
                 if (_limitController.text == null ||
                     _limitController.text.isEmpty) {
                   _limitController.text = 0.toString();
@@ -232,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: "Add Products",
-            icon: Icon(Icons.add),
+            label: "Cart",
+            icon: Icon(Icons.shopping_cart),
           ),
           BottomNavigationBarItem(
             label: "Profile",

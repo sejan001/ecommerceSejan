@@ -1,12 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
+    as C;
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 class ProductsRepository {
   String api = "https://dummyjson.com/products";
+  String cartAPI = 'https://dummyjson.com/carts';
 
   Future<List<Products>> fetchProducts(
       {required FilterProductStateModel model}) async {
@@ -86,7 +90,7 @@ class ProductsRepository {
     }
   }
 
-  Future<User> getToken(var username, var password) async {
+  Future<User> getUser(var username, var password) async {
     const String api = 'https://dummyjson.com/auth/login';
     try {
       final response = await http.post(Uri.parse(api),
@@ -115,5 +119,70 @@ class ProductsRepository {
       throw Exception();
     }
     throw 0;
+  }
+
+  Future<List<C.UserCartResponse>> fetchCarts(int? userId) async {
+    try {
+      final cartUri = Uri.parse('$cartAPI/user/${userId}');
+      final response = await http.get(cartUri);
+      print("final responseee $cartUri");
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        if (data.containsKey('carts')) {
+          final List<dynamic> carts = data['carts'];
+          print("response aaayo ${response.body}");
+          return carts
+              .map((cart) => C.UserCartResponse.fromJson(cart))
+              .toList();
+        } else {
+          throw Exception('Carts key not found in response');
+        }
+      } else {
+        throw Exception(
+            'Failed to fetch carts. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching carts: $e');
+    }
+  }
+
+  Future<List<C.UserCartResponse>> addCart({
+    required int? id,
+    required String? title,
+    required double? price,
+    required double? total,
+    required int? userId,
+    required double? discountPercentage,
+    required String? thumbnail,
+  }) async {
+    try {
+      final response = await http.post(Uri.parse("${cartAPI}/add"),
+          body: jsonEncode({
+            'userId': userId,
+            'products': [
+              {
+                'id': id,
+                "title": title,
+                "price": price,
+                "total": total,
+                "discountPercentage": discountPercentage,
+                "thumbnail": thumbnail
+              }
+            ]
+          }),
+          headers: {"Content-Type": 'application/json'});
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        SharedPreferenecesService.setString(
+            key: "carts", value: jsonEncode(response.body));
+        print(response.body);
+        print("cart addd vayooo");
+      } else {
+        print(response.statusCode);
+        print("cart addd vaenaaa");
+      }
+    } catch (e) {
+      print("cart ko exception $e");
+    }
+    throw Exception();
   }
 }

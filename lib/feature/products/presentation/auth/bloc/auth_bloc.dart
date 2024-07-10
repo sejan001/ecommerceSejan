@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
@@ -18,12 +20,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       User user =
-          await ProductsRepository().getToken(event.username, event.password);
+          await ProductsRepository().getUser(event.username, event.password);
       print("user aayo ${user.email}");
       print("user aayo ${user.token}");
 
       SharedPreferenecesService.setString(key: 'token', value: user.token);
-      final Sejan = SharedPreferenecesService.getString(key: 'token');
+
+      // final Sejan = SharedPreferenecesService.getString(key: 'token');
+      SharedPreferenecesService.setString(
+          key: "currentUser", value: jsonEncode(user));
       emit(AuthSuccess(user: user));
     } catch (e) {
       emit(AuthFailure(error: "wrong username or password"));
