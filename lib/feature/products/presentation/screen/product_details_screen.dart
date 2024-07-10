@@ -45,6 +45,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('Product Detail'),
       ),
       body: BlocBuilder<ProductsBloc, ProductsState>(

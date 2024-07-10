@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_state.dart';
+import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
@@ -60,6 +61,7 @@ Widget ProductsList() {
                             Align(
                               alignment: Alignment.topRight,
                               child: IconButton(
+                                  tooltip: "Add to cart",
                                   onPressed: () {
                                     BlocProvider.of<CartsBloc>(context).add(
                                         AddProduct(
@@ -72,6 +74,7 @@ Widget ProductsList() {
                                                 product.discountPercentage,
                                             thumbnail: product.thumbnail,
                                             userId: currentUser.id));
+                                    // final Cart cart = Cart(products: Product())
                                   },
                                   icon: Icon(Icons.favorite_border)),
                             ),

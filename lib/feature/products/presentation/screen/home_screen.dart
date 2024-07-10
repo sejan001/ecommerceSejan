@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icon.dart';
 
 import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/Products/Bloc/products_events.dart';
@@ -14,6 +18,7 @@ import 'package:project_bloc/feature/products/presentation/widget/profile%20_scr
 
 class HomeScreen extends StatefulWidget {
   final User user;
+
   const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -24,6 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _productNameController = TextEditingController();
   TextEditingController _limitController = TextEditingController();
   TextEditingController _skipController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _categoryController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
   int _selectedIndex = 0;
 
   static List<Widget> _pages = [];
@@ -248,6 +260,100 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _selectedIndex,
         onTap: _onTappedItem,
       ),
+      floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.orange,
+        onPressed: () {
+          _addProducts(height, width);
+        },
+        child: Icon(Icons.add_business_outlined),
+      ),
     );
+  }
+
+  Widget _addProducts(double height, double width) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Add Products"),
+            content: Container(
+              height: height * .6,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            _image != null ? FileImage(_image!) : null,
+                        radius: 40,
+                      ),
+                      SizedBox(
+                        width: width * .015,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Future<void> imagePicker() async {
+                              final pickedFile = await _picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (pickedFile != null) {
+                                setState(() {
+                                  _image = File(pickedFile.path);
+                                });
+                              }
+                            }
+
+                            imagePicker();
+                          },
+                          icon: Icon(Icons.add_a_photo_outlined))
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * .015,
+                  ),
+                  TextField(
+                    controller: _titleController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "Enter product's title"),
+                  ),
+                  SizedBox(
+                    height: height * .015,
+                  ),
+                  TextField(
+                    controller: _priceController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "Enter product's price"),
+                  ),
+                  SizedBox(
+                    height: height * .015,
+                  ),
+                  TextField(
+                    controller: _descriptionController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "describe your product"),
+                  ),
+                  SizedBox(
+                    height: height * .015,
+                  ),
+                  TextField(
+                    controller: _categoryController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "Enter product's category"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+    return SizedBox.shrink();
   }
 }
