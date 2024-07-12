@@ -69,6 +69,8 @@ class _LoginState extends State<Login> {
         } else if (state is AuthSuccess) {
           final userJson = jsonEncode(state.user.toJson());
           context.go("/homeScreen/${Uri.encodeComponent(userJson)}");
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("logged in"),backgroundColor: Colors.green,));
         }
       },
       child: Scaffold(
@@ -197,6 +199,8 @@ class _LoginState extends State<Login> {
                                               username: _username.text,
                                               password: _password.text));
                                       clear();
+
+
                                     }
                                   },
                                   child: Text("Login",

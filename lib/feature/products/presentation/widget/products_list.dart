@@ -74,6 +74,8 @@ Widget ProductsList() {
                                                 product.discountPercentage,
                                             thumbnail: product.thumbnail,
                                             userId: currentUser.id));
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("added to cart"),backgroundColor: Colors.green,));
+
                                     // final Cart cart = Cart(products: Product())
                                   },
                                   icon: Icon(Icons.favorite_border)),

@@ -4,6 +4,7 @@ import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
     as C;
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
+import 'package:project_bloc/feature/products/domain/model/post_model.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
@@ -184,5 +185,29 @@ class ProductsRepository {
       print("cart ko exception $e");
     }
     throw Exception();
+  }
+  Future<List<Posts>> fetchPosts() async{
+    String postsApi = "https://dummyjson.com/posts";
+    final response = await http.get(Uri.parse(postsApi));
+    if (response.statusCode == 200) {
+    Map<String,dynamic> json = jsonDecode(response.body);
+    if (json.containsKey("posts")) {
+    final List<dynamic> posts = json['posts'];
+    print("posts aayooo $posts");
+    return posts.map((post)=> Posts.fromJson(post)).toList();
+
+
+      
+    }
+    else{
+      throw Exception();
+    }
+      
+    }
+    else{
+      return [];
+    }
+    
+
   }
 }

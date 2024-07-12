@@ -78,7 +78,10 @@ class _ProfileTabState extends State<ProfileTab> {
                       setState(() {
                         SharedPreferenecesService.removeString(key: "token");
 
-                        context.go("/login");
+                        context.go("/login");                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("logged out"),backgroundColor: Colors.red,));
+
+
+
                       });
                     },
                     child: Text(

@@ -15,8 +15,11 @@ import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/widget/cartsScreen.dart';
 
+
 import 'package:project_bloc/feature/products/presentation/widget/products_list.dart';
 import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
+
+import 'post_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -48,10 +51,13 @@ List<Product> product = [];
     print("user hoooo ${widget.user.firstName}");
     _pages = [
       ProductsList(),
+           PostsTab(),
       CartsTab(user: widget.user),
       ProfileTab(
         user: widget.user,
-      )
+      ),
+ 
+
     ];
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       BlocProvider.of<ProductsBloc>(context)
@@ -251,20 +257,29 @@ List<Product> product = [];
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            
             label: "Home",
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home,color: Colors.black,),
+          ),
+           BottomNavigationBarItem(
+            label: "Posts",
+            icon: Icon(Icons.social_distance_outlined,color: Colors.black,),
           ),
           BottomNavigationBarItem(
             label: "Cart",
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_cart,color: Colors.black,),
           ),
           BottomNavigationBarItem(
             label: "Profile",
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.person,color: Colors.black,),
           ),
+         
         ],
         currentIndex: _selectedIndex,
         onTap: _onTappedItem,
+          selectedItemColor: Colors.orange,
+        unselectedLabelStyle: TextStyle(color: Colors.orange,fontWeight: FontWeight.w600),
+        selectedLabelStyle: TextStyle(color: Colors.orange,fontWeight: FontWeight.w600),
       ),
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.white,
@@ -286,87 +301,89 @@ List<Product> product = [];
               return AlertDialog(
                 title: Text("Add Products"),
                 content: Container(
-                  height: height * .5 ,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                   Container(
-                    height: height*.16,
-                    width: width*.3,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      image: DecorationImage(image: _image != null ? FileImage(File(_image!.path)): NetworkImage("https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"),fit: BoxFit.cover)),),
-                          SizedBox(
-                            width: width * .015,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                Future<void> imagePicker() async {
-                                  final pickedFile = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  if (pickedFile != null) {
-                                    setState(() {
-                                      _image = File(pickedFile.path);
-                                    });
+                  height: height * .53,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                     Container(
+                      height: height*.16,
+                      width: width*.3,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        image: DecorationImage(image: _image != null ? FileImage(File(_image!.path)): NetworkImage("https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"),fit: BoxFit.cover)),),
+                            SizedBox(
+                              width: width * .015,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Future<void> imagePicker() async {
+                                    final pickedFile = await _picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    if (pickedFile != null) {
+                                      setState(() {
+                                        _image = File(pickedFile.path);
+                                      });
+                                    }
                                   }
-                                }
-              
-                                imagePicker();
-                              },
-                              icon: Icon(Icons.add_a_photo_outlined))
-              
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * .015,
-                      ),
-                      TextField(
-                        controller: _titleController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            hintText: "Enter product's title"),
-                      ),
-                      SizedBox(
-                        height: height * .015,
-                      ),
-                      TextField(
-                        controller: _priceController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            hintText: "Enter product's price"),
-                      ),
-                      SizedBox(
-                        height: height * .015,
-                      ),
-                      TextField(
-                        controller: _descriptionController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            hintText: "describe your product"),
-                      ),
-                      SizedBox(
-                        height: height * .015,
-                      ),
-                      TextField(
-                        controller: _categoryController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            hintText: "Enter product's category"),
-                      ),
-                      SizedBox(
-                        height: height * .015,
-                      ),
-                      TextButton(onPressed: (){
-                        BlocProvider.of<ProductsBloc>(context).add(AddProduct(title: _titleController.text,price: _priceController.text, description: _descriptionController.text,
-                        category: _categoryController.text,thumbnail: _image != null ? _image!.path.toString() : ''));
-                      }, child: Text("Add Products",style: TextStyle(color: Colors.orange),))
-                    ],
+                                  
+                                  imagePicker();
+                                },
+                                icon: Icon(Icons.add_a_photo_outlined))
+                                  
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * .015,
+                        ),
+                        TextField(
+                          controller: _titleController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              hintText: "Enter product's title"),
+                        ),
+                        SizedBox(
+                          height: height * .015,
+                        ),
+                        TextField(
+                          controller: _priceController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              hintText: "Enter product's price"),
+                        ),
+                        SizedBox(
+                          height: height * .015,
+                        ),
+                        TextField(
+                          controller: _descriptionController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              hintText: "describe your product"),
+                        ),
+                        SizedBox(
+                          height: height * .015,
+                        ),
+                        TextField(
+                          controller: _categoryController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder( 
+                                  borderRadius: BorderRadius.circular(20)),
+                              hintText: "Enter product's category"),
+                        ),
+                        SizedBox(
+                          height: height * .015,
+                        ),
+                        TextButton(onPressed: (){
+                          BlocProvider.of<ProductsBloc>(context).add(AddProduct(title: _titleController.text,price: _priceController.text, description: _descriptionController.text,
+                          category: _categoryController.text,thumbnail: _image != null ? _image!.path.toString() : ''));
+                        }, child: Text("Add Products",style: TextStyle(color: Colors.orange),))
+                      ],
+                    ),
                   ),
                 ),
               );
