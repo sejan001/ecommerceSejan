@@ -188,8 +188,14 @@ class ProductsRepository {
     }
     throw Exception();
   }
-  Future<List<Posts>> fetchPosts() async{
-    String postsApi = "https://dummyjson.com/posts";
+  Future<List<Posts>> fetchPosts(String? id) async{ 
+        String postsApi = "https://dummyjson.com/posts";
+    if (id != null) {
+      postsApi = "https://dummyjson.com/posts/user/$id";
+
+      
+    }
+
     final response = await http.get(Uri.parse(postsApi));
     if (response.statusCode == 200) {
     Map<String,dynamic> json = jsonDecode(response.body);

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:lottie/lottie.dart';
 
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/products/presentation/screen/user_details_screen.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filterusers_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/users_bloc.dart';
@@ -22,9 +24,9 @@ class _ProfileTabState extends State<ProfileTab> {
   void initState() {
     super.initState();
     print("user profile aayo ${widget.user.firstName}");
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      BlocProvider.of<UsersBloc>(context).add(FetchUsers(model: FilterUser()));
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_){
+    //   BlocProvider.of<UsersBloc>(context).add(FetchUsers(model: FilterUser()));
+    // });
   }
 
   @override
@@ -99,7 +101,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             },
                             controller: _userController,
                             decoration: InputDecoration(
-                                hintText: 'username',
+                                hintText: 'search username',
                                 labelText: "Enter user's name",
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
@@ -109,7 +111,11 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                       IconButton(
                         onPressed: () {
-                          BlocProvider.of<UsersBloc>(context).add(FetchUsers(model: FilterUser()));
+                         FilterUser filterUser = context.read<FilterusersCubit>().state;
+                              
+                               BlocProvider.of<UsersBloc>(context).add(FetchUsers(model: filterUser.copyWith(
+              name: _userController.text
+                               )));
                         },
                         icon: Icon(Icons.search),
                       ),
@@ -142,6 +148,9 @@ class _ProfileTabState extends State<ProfileTab> {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ListTile(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> UserDetails(user: user)));
+                                    },
                                   iconColor: Colors.grey,
                                     leading: CircleAvatar(backgroundImage: NetworkImage(user.image.toString() ?? 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'),
                                   ), title: Text("${user.firstName} ${user.lastName}"),),

@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
+import '../../domain/model/complex_user_model.dart';
+
 class UserProfile extends StatefulWidget {
-  final User user;
+  final Users user;
   const UserProfile({super.key, required this.user});
 
   @override
