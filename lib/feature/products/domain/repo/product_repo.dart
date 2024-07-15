@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
     as C;
+import 'package:project_bloc/feature/products/domain/model/complex_user_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 import 'package:project_bloc/feature/products/domain/model/post_model.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
+import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
 
 class ProductsRepository {
   String api = "https://dummyjson.com/products";
@@ -210,4 +212,40 @@ class ProductsRepository {
     
 
   }
+Future<UserModel> fetchUsers({required FilterUser model}) async {
+  String urlUsers = 'https://dummyjson.com/users';
+
+
+  if (model.name != null) {
+    urlUsers = '$urlUsers/search?q=${model.name}';
+  }
+
+  var url = Uri.parse(urlUsers);
+
+  final queryParams = {
+    if (model.limit != null) 'limit': model.limit.toString(),
+    if (model.id != null) 'id': model.id.toString(),
+    if (model.skip != null) 'skip': model.skip.toString(),
+    if (model.name != null) 'q': model.name,
+  };
+
+  if (queryParams.isNotEmpty) {
+    url = url.replace(queryParameters: queryParams);
+  }
+
+  try {
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+      print(response.statusCode);
+      throw Exception('Failed to fetch users');
+    }
+  } catch (e) {
+    print('Error fetching users: $e');
+    throw Exception('Error fetching users: $e');
+  }
+}
+
 }

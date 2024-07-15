@@ -27,8 +27,8 @@ Future<void> _onFetchProducts(
   try {
     print("Fetched products with name: ${event.filterModel.id} ");
 
-    final List<Products> products = await ProductsRepository().fetchProducts(
-      model: event.filterModel,
+    final List<Products> products = await ProductsRepository().fetchProducts(model:  event.filterModel
+    
     );
   
     emit(ProductsLoaded(products: products));

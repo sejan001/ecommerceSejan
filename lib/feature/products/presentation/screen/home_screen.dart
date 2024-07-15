@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 
@@ -12,6 +13,7 @@ import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/widget/cartsScreen.dart';
 
@@ -172,13 +174,31 @@ List<Product> product = [];
 
     return Scaffold(
       drawer: Drawer(
-        width: width * .3,
+        width: width * .5,
         child: ListView(
           children: <Widget>[
             Container(
               height: height * .1,
               child: DrawerHeader(child: Center(child: Text("Menu"))),
             ),
+              ElevatedButton(
+                         style: ButtonStyle(
+                             backgroundColor:
+                                 WidgetStatePropertyAll<Color>(Colors.orange)),
+                         onPressed: () {
+                           setState(() {
+                             SharedPreferenecesService.removeString(key: "token");
+                 
+                             context.go("/login");                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("logged out"),backgroundColor: Colors.red,));
+                 
+                 
+                 
+                           });
+                         },
+                         child: Text(
+                           "Log out",
+                           style: TextStyle(color: Colors.white),
+                         ))
           ],
         ),
       ),

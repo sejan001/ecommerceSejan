@@ -7,6 +7,8 @@ import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.d
 import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/posts/bloc/posts_bloc.dart';
+import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filterusers_cubit.dart';
+import 'package:project_bloc/feature/products/presentation/users/bloc/users_bloc.dart';
 
 import 'core/route/my_app_router.dart';
 
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => CartsBloc()),
               BlocProvider(create: (context) => PostsBloc()),
+                  BlocProvider(create: (context) => UsersBloc()),
+                  BlocProvider(create: (context)=> FilterusersCubit())
 
       ],
       child: MaterialApp(
