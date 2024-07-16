@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_bloc/feature/products/domain/model/complex_user_model.dart';
 
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+
 import 'package:project_bloc/feature/products/presentation/posts/bloc/posts_bloc.dart';
-import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
-import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filterusers_cubit.dart';
-import 'package:project_bloc/feature/products/presentation/users/bloc/users_bloc.dart';
+
 
 class UserDetails extends StatefulWidget {
   final Users user;
@@ -19,7 +17,7 @@ class UserDetails extends StatefulWidget {
 }
 
 class _UserDetailsState extends State<UserDetails> {
-  TextEditingController _userController = TextEditingController();
+
   @override
   void initState() {
     super.initState();

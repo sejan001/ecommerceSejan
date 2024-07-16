@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
     as C;
+import 'package:project_bloc/feature/products/domain/model/comments_model.dart' as CM;
 import 'package:project_bloc/feature/products/domain/model/complex_user_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
@@ -253,5 +254,24 @@ Future<UserModel> fetchUsers({required FilterUser model}) async {
     throw Exception('Error fetching users: $e');
   }
 }
+Future<CM.CommentsModel> fetchComments (String postID) async {
+  String commentsApi = "https://dummyjson.com/comments";
+  if (postID.isNotEmpty) {
+    commentsApi = '${commentsApi}/post/$postID';
+    
+  }
+  try {
+    final response = await http.get(Uri.parse(commentsApi));
+    if (response.statusCode == 200) {
+      return CM.CommentsModel.fromJson(jsonDecode(response.body));
+      
+    }
 
+    
+  } catch (e) {
+    
+print("comments ko errror $e");
+  }
+  throw Exception();
+}
 }

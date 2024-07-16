@@ -32,7 +32,7 @@ class _CartsTabState extends State<CartsTab> {
     return BlocBuilder<CartsBloc, CartsState>(
       builder: (context, state) {
         if (state is CartsLoading) {
-          double width = MediaQuery.sizeOf(context).width * 1;
+          // double width = MediaQuery.sizeOf(context).width * 1;
           double height = MediaQuery.sizeOf(context).height * 1;
           return Center(
               child: Container(

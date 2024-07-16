@@ -62,9 +62,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             final product = state.products.firstWhere(
                 (e) => e.id.toString() == widget.id.toString(),
                 orElse: () => Products());
-            if (product == null) {
-              return Center(child: Text('Product not found'));
-            }
+          
 
             String? barcodeDate = product.meta?.barcode ?? '';
 
@@ -226,6 +224,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     )
                                   : Padding(
                                       padding: const EdgeInsets.all(8.0),
+                                      // ignore: deprecated_member_use
                                       child: TyperAnimatedTextKit(
                                         isRepeatingAnimation: false,
                                         speed: Duration(milliseconds: 10),
@@ -369,7 +368,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               Container(
                                   width: width * 0.3,
                                   child: BarcodeWidget(
-                                      data: barcodeDate!,
+                                      data: barcodeDate,
                                       barcode: Barcode.code128())),
                             ],
                           ),

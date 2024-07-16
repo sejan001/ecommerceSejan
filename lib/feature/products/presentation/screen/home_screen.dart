@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 
 
 import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
@@ -214,7 +215,7 @@ List<Product> product = [];
               children: [
                 Container(
                   height: height * .1,
-                  width: width * .5,
+                  width: width * .45,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
@@ -268,9 +269,17 @@ List<Product> product = [];
                   onPressed: _filter,
                   icon: Icon(Icons.select_all_outlined),
                 ),
+
+                SizedBox(
+                  width: width*.12,
+                  child: LottieBuilder.network("https://lottie.host/95700c24-bfef-4faa-a3ec-a1e47582c2d9/hUkHNSyQXU.json"),
+                )
+
+
               ],
             ),
           ),
+
         ],
       ),
       body: _pages[_selectedIndex],

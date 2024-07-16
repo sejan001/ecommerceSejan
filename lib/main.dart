@@ -5,6 +5,7 @@ import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
+import 'package:project_bloc/feature/products/presentation/comments/bloc/comments_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/posts/bloc/posts_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filterusers_cubit.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CartsBloc()),
               BlocProvider(create: (context) => PostsBloc()),
                   BlocProvider(create: (context) => UsersBloc()),
-                  BlocProvider(create: (context)=> FilterusersCubit())
+                  BlocProvider(create: (context)=> FilterusersCubit()),
+                  BlocProvider(create: (context)=> CommentsBloc())
 
       ],
       child: MaterialApp(

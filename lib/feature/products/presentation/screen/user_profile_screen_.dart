@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 import '../../domain/model/complex_user_model.dart';
@@ -42,7 +42,7 @@ class _UserProfileState extends State<UserProfile> {
       });
     }
     double height = MediaQuery.sizeOf(context).height * 1;
-    double width = MediaQuery.sizeOf(context).width * 1;
+    // double width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
