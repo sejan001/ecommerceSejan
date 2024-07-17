@@ -15,7 +15,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
      Future<void> fetchComment (fetchComments event , Emitter<CommentsState> emit) async{
   emit(CommentsLoading());
  try {
-CommentsModel model = await ProductsRepository().fetchComments(event.postID);
+CommentsModel model = await RepoProvider().fetchComments(event.postID);
     print("comments aayo $model");
     emit(CommentsLoaded(comments: model));
  } catch (e) {

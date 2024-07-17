@@ -26,7 +26,7 @@ Future<void> _onFetchProducts(
   try {
     print("Fetched products with name: ${event.filterModel.id} ");
 
-    final List<Products> products = await ProductsRepository().fetchProducts(model:  event.filterModel
+    final List<Products> products = await RepoProvider().fetchProducts(model:  event.filterModel
     
     );
   
@@ -39,7 +39,7 @@ Future<void> _onFetchProducts(
 
 Future<void> _addProduct(AddProduct event, Emitter<ProductsState> emit) async {
   try {
-    final product = await ProductsRepository().addProduct(
+    final product = await RepoProvider().addProduct(
         event.title.toString(),
         event.category,
         event.description,

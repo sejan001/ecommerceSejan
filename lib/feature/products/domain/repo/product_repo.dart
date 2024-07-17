@@ -12,7 +12,7 @@ import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
 
-class ProductsRepository {
+class RepoProvider {
   String api = "https://dummyjson.com/products";
   String cartAPI = 'https://dummyjson.com/carts';
 

@@ -20,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       User user =
-          await ProductsRepository().getUser(event.username, event.password);
+          await RepoProvider().getUser(event.username, event.password);
       print("user aayo ${user.email}");
       print("user aayo ${user.token}");
 

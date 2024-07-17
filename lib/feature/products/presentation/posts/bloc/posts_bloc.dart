@@ -15,7 +15,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
   Future<void> _getPosts(fetchAllPosts event, Emitter<PostsState> emit ) async{
     emit(PostsLoading());
     try {
-      final List<Posts>  posts = await ProductsRepository().fetchPosts(event.id);
+      final List<Posts>  posts = await RepoProvider().fetchPosts(event.id);
     print("bloc ma posts aayo $posts");
     emit(PostsLoaded(posts: posts));
 

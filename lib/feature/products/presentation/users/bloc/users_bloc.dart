@@ -15,7 +15,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   Future<void> loadUsers(FetchUsers event, Emitter<UsersState> emit) async {
     emit(UsersLoadingState());
     try {
-      UserModel users = await ProductsRepository().fetchUsers(model: event.model);
+      UserModel users = await RepoProvider().fetchUsers(model: event.model);
       emit(UsersLoadedState(users: users));
       print("Users loaded: ${users}");
     } catch (e) {

@@ -20,7 +20,7 @@ class CartsBloc extends Bloc<CartsEvent, CartsState> {
     emit(CartsLoading());
     try {
       final List<UserCartResponse> carts =
-          await ProductsRepository().fetchCarts(event.userId);
+          await RepoProvider().fetchCarts(event.userId);
 
       print("naya carts $carts");
 
@@ -33,7 +33,7 @@ class CartsBloc extends Bloc<CartsEvent, CartsState> {
   Future<void> _addCarts(AddProduct event, Emitter<CartsState> emit) async {
     emit(CartsLoading());
     try {
-      final List<UserCartResponse> carts = await ProductsRepository().addCart(
+      final List<UserCartResponse> carts = await RepoProvider().addCart(
         id: event.id,
         userId: event.userId,
         discountPercentage: event.discountPercentage,
