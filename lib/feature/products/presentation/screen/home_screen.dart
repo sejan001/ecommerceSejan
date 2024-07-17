@@ -215,7 +215,7 @@ List<Product> product = [];
               children: [
                 Container(
                   height: height * .1,
-                  width: width * .45,
+                  width: width * .40,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(

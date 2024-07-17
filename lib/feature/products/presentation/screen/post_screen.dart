@@ -135,7 +135,7 @@ int? commentsNumber;
                                     ],
                                   ),
                                   SizedBox(
-                                    width: width * .20,
+                                    width: width * .15,
                                   ),
                                   Icon(Icons.remove_red_eye),
                                   Text("${post.views}",
