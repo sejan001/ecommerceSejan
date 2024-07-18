@@ -137,7 +137,7 @@ class _ProductsListState extends State<ProductsList> {
                                   onPressed: () {
                                     setState(() {
                                      addedCarts.add(product.id);
-                                     
+                                      
                                     });
                                     BlocProvider.of<CartsBloc>(context).add(
                                         AddProduct(
