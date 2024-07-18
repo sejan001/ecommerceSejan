@@ -89,21 +89,23 @@ List<Product> product = [];
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text("Limit and skip"),
+              backgroundColor: Colors.orangeAccent,
+              title: Text("Limit and skip",style: TextStyle(color: Colors.white),),
               content: Container(
-                height: 200,
+                height: 140,
                 width: double.maxFinite,
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Text("Limit"),
+                        Text("Limit",style: TextStyle(color: Colors.white),),
                         SizedBox(width: 10),
                         Expanded(
                           child: TextField(
                             controller: _limitController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              hintStyle: TextStyle(color: Colors.white),
                               hintText: 'Enter limit',
                             ),
                             keyboardType: TextInputType.number,
@@ -114,7 +116,7 @@ List<Product> product = [];
                     SizedBox(height: 20),
                     Row(
                       children: [
-                        Text("Skip"),
+                        Text("Skip",style: TextStyle(color: Colors.white)),
                         SizedBox(width: 10),
                         Expanded(
                           child: TextField(
@@ -122,6 +124,7 @@ List<Product> product = [];
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Enter skip',
+                               hintStyle: TextStyle(color: Colors.white),
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -158,7 +161,7 @@ List<Product> product = [];
                     ));
                     Navigator.of(context).pop();
                   },
-                  child: Text("Apply"),
+                  child: Text("Apply",style: TextStyle(color: Colors.white)),
                 ),
               ],
             );

@@ -9,7 +9,7 @@ sealed class AuthState extends Equatable {
 
 final class AuthInitial extends AuthState {}
 
-final class AuthLoading extends AuthState {}
+final class   AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
   User user;

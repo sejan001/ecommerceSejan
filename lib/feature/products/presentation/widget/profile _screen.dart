@@ -148,6 +148,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ListTile(
+                                    hoverColor: Colors.grey,
                                     onTap: (){
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=> UserDetails(user: user)));
                                     },

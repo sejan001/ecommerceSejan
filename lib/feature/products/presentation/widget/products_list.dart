@@ -23,6 +23,8 @@ class ProductsList extends StatefulWidget {
 
 class _ProductsListState extends State<ProductsList> {
   PageController _pageController = PageController();
+ List<int?> addedCarts =[];
+  int? cartProduct;
   int _currentPage = 0;
   List<String> images = [
     'https://img.freepik.com/free-psd/banner-shopping-sale-template_23-2148797677.jpg',
@@ -53,6 +55,7 @@ class _ProductsListState extends State<ProductsList> {
 
   @override
   Widget build(BuildContext context) {
+ 
     double height = MediaQuery.sizeOf(context).height * 1;
     return Scaffold(
       body: CustomScrollView(
@@ -105,12 +108,14 @@ class _ProductsListState extends State<ProductsList> {
                     ),
                     itemCount: state.products.length,
                     itemBuilder: (context, index) {
+
                       final userString =
                           SharedPreferenecesService.getString(key: "currentUser");
                       final userMap =
                           jsonDecode(userString!) as Map<String, dynamic>;
                       final currentUser = User.fromJson(userMap);
                       final product = state.products[index];
+                         bool showCartGif = addedCarts.contains(product.id);
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -120,6 +125,9 @@ class _ProductsListState extends State<ProductsList> {
                                       ProductDetailScreen(id: product.id)));
                         },
                         child: Card(
+                          borderOnForeground: true,
+                          elevation: 10,
+                          shadowColor: Colors.orange,
                           child: Column(
                             children: [
                               Align(
@@ -127,6 +135,10 @@ class _ProductsListState extends State<ProductsList> {
                                 child: IconButton(
                                   tooltip: "Add to cart",
                                   onPressed: () {
+                                    setState(() {
+                                     addedCarts.add(product.id);
+                                     
+                                    });
                                     BlocProvider.of<CartsBloc>(context).add(
                                         AddProduct(
                                             id: product.id,
@@ -140,10 +152,11 @@ class _ProductsListState extends State<ProductsList> {
                                             userId: currentUser.id));
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                            content: Text("added to cart"),
+                                            content: Text("added ${product.title} to cart"),
                                             backgroundColor: Colors.green,));
                                   },
-                                  icon: Icon(Icons.favorite_border),
+                                  icon:  showCartGif? SizedBox(height: 60,
+                                    child:  LottieBuilder.network("https://lottie.host/01a8a168-ad27-4b34-bbe6-3914326d5635/Q1lHGGbZmv.json")): Icon(Icons.favorite_border) 
                                 ),
                               ),
                               Expanded(
