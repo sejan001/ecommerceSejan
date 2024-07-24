@@ -10,7 +10,7 @@ sealed class CartsState extends Equatable {
 final class CartsInitial extends CartsState {}
 
 class cartsLoadedState extends CartsState {
-  List<UserCartResponse> carts;
+  UserCartResponse carts;
 
   cartsLoadedState({required this.carts});
 }

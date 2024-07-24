@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_bloc/feature/products/domain/model/user_model.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/login_screen.dart';
+import 'package:project_bloc/feature/products/presentation/screen/add_posts_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/home_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/initial_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
@@ -12,7 +13,9 @@ import 'package:project_bloc/feature/products/presentation/widget/profile%20_scr
 class MyAppRouter extends StatelessWidget {
   MyAppRouter({super.key});
 
-  final GoRouter _goRouter = GoRouter(routes: [
+  final GoRouter _goRouter = GoRouter(
+    // initialLocation: "/addPost",
+    routes: [
     GoRoute(path: '/', builder: (context, state) => InitialScreen()
         // builder: (context, state) => ProfileTab(
         //       user: User(
@@ -26,6 +29,7 @@ class MyAppRouter extends StatelessWidget {
         //     )),
         ),
     GoRoute(
+
         path: '/homeScreen/:user',
         builder: (context, state) {
           final String userJson = state.pathParameters['user'] ?? '';
@@ -33,16 +37,18 @@ class MyAppRouter extends StatelessWidget {
           return HomeScreen(user: user);
         }),
     GoRoute(path: "/login", builder: (context, state) => Login()),
+        GoRoute(path: "/addPost", builder: (context, state) => AddPosts()),
     GoRoute(
         path: "/profileTab:user",
         builder: (context, state) {
           final User user = state.pathParameters["user"] as User;
           return ProfileTab(user: user);
         }),
-    GoRoute(
+            GoRoute(
         path: '/detailsScreen/:id',
         builder: (context, state) =>
-            ProductDetailScreen(id: state.pathParameters["id"]!))
+            ProductDetailScreen(id: state.pathParameters["id"]!)),
+ 
   ]);
 
   @override

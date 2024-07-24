@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
+
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
+import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
 import 'package:project_bloc/feature/products/presentation/comments/bloc/comments_bloc.dart';
@@ -13,9 +14,9 @@ import 'package:project_bloc/feature/products/presentation/users/bloc/users_bloc
 
 import 'core/route/my_app_router.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferenecesService.init();
+Future<void> main() async {
+ await WidgetsFlutterBinding.ensureInitialized();
+ await SharedPreferenecesService.init();
   runApp(const MyApp());
 }
 

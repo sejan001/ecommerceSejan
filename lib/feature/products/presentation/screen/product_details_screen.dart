@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_bloc/feature/products/Products/Bloc/products_bloc.dart';
-import 'package:project_bloc/feature/products/Products/Bloc/products_events.dart';
-import 'package:project_bloc/feature/products/Products/Bloc/products_state.dart';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
+import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_bloc.dart';
+import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_events.dart';
+import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_state.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final id;

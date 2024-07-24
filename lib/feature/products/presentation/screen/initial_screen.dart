@@ -65,69 +65,71 @@ class _InitialScreenState extends State<InitialScreen> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Align(
-              alignment: Alignment.topRight,
-              child: SafeArea(
-                  child: TextButton(
-                      onPressed: () {
-                        context.go("/login");
+      body: GestureDetector(
+        child: Column(
+          children: [
+            Align(
+                alignment: Alignment.topRight,
+                child: SafeArea(
+                    child: TextButton(
+                        onPressed: () {
+                          context.go("/login");
+                        },
+                        child: Text(
+                          "skip",
+                          style: TextStyle(fontSize: 17, color: Colors.pink),
+                        )))),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                  height: height * .7,
+                  width: width * .9,
+                  child: PageView.builder(
+                      onPageChanged: (value) {
+                        setState(() {
+                          dotPosition = value;
+                        });
                       },
-                      child: Text(
-                        "skip",
-                        style: TextStyle(fontSize: 17, color: Colors.pink),
-                      )))),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-                height: height * .7,
-                width: width * .9,
-                child: PageView.builder(
-                    onPageChanged: (value) {
-                      setState(() {
-                        dotPosition = value;
-                      });
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        child: _pages(
-                            pages[index]['imageUrl'].toString(),
-                            pages[index]['text'].toString(),
-                            pages[index]['subtitle'].toString(),
-                            height,
-                            width),
-                      );
-                    })),
-          ),
-          Center(
-            child: DotsIndicator(
-              decorator: DotsDecorator(activeColor: Colors.orange),
-              position: dotPosition,
-              dotsCount: 3,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return Center(
+                          child: _pages(
+                              pages[index]['imageUrl'].toString(),
+                              pages[index]['text'].toString(),
+                              pages[index]['subtitle'].toString(),
+                              height,
+                              width),
+                        );
+                      })),
             ),
-          ),
-          if (dotPosition == 2)
             Center(
-                child: TextButton(
-              onPressed: () {
-                context.go("/login");
-              },
-              child: Text(
-                "Lets Go!",
-                style: TextStyle(
-                  color: Colors.orangeAccent,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 25,
-                ),
+              child: DotsIndicator(
+                decorator: DotsDecorator(activeColor: Colors.orange),
+                position: dotPosition,
+                dotsCount: 3,
               ),
-              style: ButtonStyle(
-                  fixedSize:
-                      WidgetStatePropertyAll(Size(width * .6, height * .09))),
-            )),
-        ],
+            ),
+            if (dotPosition == 2)
+              Center(
+                  child: TextButton(
+                onPressed: () {
+                  context.go("/login");
+                },
+                child: Text(
+                  "Lets Go!",
+                  style: TextStyle(
+                    color: Colors.orangeAccent,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
+                  ),
+                ),
+                style: ButtonStyle(
+                    fixedSize:
+                        WidgetStatePropertyAll(Size(width * .6, height * .09))),
+              )),
+          ],
+        ),
       ),
     );
   }

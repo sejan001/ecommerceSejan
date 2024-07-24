@@ -19,10 +19,14 @@ class CartsBloc extends Bloc<CartsEvent, CartsState> {
   Future<void> _fetchCarts(fetchCarts event, Emitter<CartsState> emit) async {
     emit(CartsLoading());
     try {
-      final List<UserCartResponse> carts =
+      final UserCartResponse carts =
           await RepoProvider().fetchCarts(event.userId);
+print("aaaaaakoo carts ${carts.carts}");
+        SharedPreferenecesService.setString(key: "userCarts",value: jsonEncode(carts));
+        final cartList = SharedPreferenecesService.getString(key: "userCarts");
+        print("save vako carts $cartList");
 
-      print("naya carts $carts");
+      print("naya carts ${carts.carts[0]}");
 
       emit(cartsLoadedState(carts: carts));
     } catch (e) {
@@ -33,7 +37,7 @@ class CartsBloc extends Bloc<CartsEvent, CartsState> {
   Future<void> _addCarts(AddProduct event, Emitter<CartsState> emit) async {
     emit(CartsLoading());
     try {
-      final List<UserCartResponse> carts = await RepoProvider().addCart(
+      final UserCartResponse carts = await RepoProvider().addCart(
         id: event.id,
         userId: event.userId,
         discountPercentage: event.discountPercentage,
@@ -45,7 +49,7 @@ class CartsBloc extends Bloc<CartsEvent, CartsState> {
 
       emit(cartsLoadedState(carts: carts));
 
-      final cartsJson = carts.map((cart) => cart.toJson()).toList();
+   
     } catch (e) {
       emit(CartsError("carts loaded state error $e"));
     }

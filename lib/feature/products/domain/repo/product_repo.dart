@@ -125,7 +125,7 @@ class RepoProvider {
     throw 0;
   }
 
-  Future<List<C.UserCartResponse>> fetchCarts(int? userId) async {
+  Future<C.UserCartResponse> fetchCarts(int? userId) async {
     try {
       final cartUri = Uri.parse('$cartAPI/user/${userId}');
       final response = await http.get(cartUri);
@@ -135,9 +135,7 @@ class RepoProvider {
         if (data.containsKey('carts')) {
           final List<dynamic> carts = data['carts'];
           print("response aaayo ${response.body}");
-          return carts
-              .map((cart) => C.UserCartResponse.fromJson(cart))
-              .toList();
+          return C.UserCartResponse.fromJson(data);
         } else {
           throw Exception('Carts key not found in response');
         }
@@ -150,7 +148,7 @@ class RepoProvider {
     }
   }
 
-  Future<List<C.UserCartResponse>> addCart({
+  Future<C.UserCartResponse> addCart({
     required int? id,
     required String? title,
     required double? price,
