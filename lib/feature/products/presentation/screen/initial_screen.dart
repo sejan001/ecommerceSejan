@@ -118,7 +118,7 @@ class _InitialScreenState extends State<InitialScreen> {
                  final userJson =
         await SharedPreferenecesService.getString(key: "currentUser");
 
-                  // context.go("/login");
+                  context.go("/login");
                   log(userJson.toString());
                 },
                 child: Text(

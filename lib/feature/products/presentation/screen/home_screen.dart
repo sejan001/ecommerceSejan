@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -41,12 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _skipController = TextEditingController();
 
 
-
+String cartNo = '0';
   int _selectedIndex = 0;
 
   static List<Widget> _pages = [];
 
 List<Product> product = [];
+  
+  
+  
   @override
   void initState() {
     super.initState();
@@ -65,6 +70,7 @@ List<Product> product = [];
       BlocProvider.of<ProductsBloc>(context)
           .add(FetchProducts(filterModel: FilterProductStateModel()));
     });
+    
   }
 
   @override
@@ -80,6 +86,7 @@ List<Product> product = [];
       _selectedIndex = index;
     });
   }
+  
 
   void _filter() {
     showDialog(
@@ -172,6 +179,15 @@ List<Product> product = [];
 
   @override
   Widget build(BuildContext context) {
+      String? json = SharedPreferenecesService.getString(key: 'userCarts');
+    if (json != null && json.isNotEmpty) {
+      UserCartResponse d = UserCartResponse.fromJson(jsonDecode(json));
+      setState(() {
+        cartNo = d.carts[0].products.length.toString();
+      });
+    } else {
+      
+    }
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -222,6 +238,7 @@ List<Product> product = [];
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      style: TextStyle(color: Colors.white),
                       onChanged: (value) {
                         FilterProductStateModel filterState =
                             context.read<FilterProductsCubit>().state;
@@ -251,7 +268,8 @@ List<Product> product = [];
                 ),
                 IconButton(
                   onPressed: () {
-                    setState(() {
+                   if (_productNameController.text.trim().isNotEmpty) {
+                     setState(() {
                       FilterProductStateModel filterState =
                           context.read<FilterProductsCubit>().state;
     
@@ -265,6 +283,9 @@ List<Product> product = [];
                         ),
                       );
                     });
+                     
+                   }
+                   
                   },
                   icon: Icon(Icons.search),
                 ),
@@ -312,10 +333,16 @@ List<Product> product = [];
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> CartsTab(user: widget.user)));
         
         },
-        child: Stack(
+        child: Row(
           children: [
-         
+         9.horizontalSpace,
             Icon(Icons.shopping_cart),
+           cartNo != "0" ? Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(color: Colors.red,shape: BoxShape.circle),
+              child: Center(child: Text(cartNo))): SizedBox.shrink()
+
           ],
         ),
       ),
