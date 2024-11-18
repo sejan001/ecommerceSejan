@@ -21,9 +21,10 @@ import 'package:project_bloc/feature/products/presentation/widget/cartsScreen.da
 
 import 'package:project_bloc/feature/products/presentation/widget/products_list.dart';
 import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'post_screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static List<Widget> _pages = [];
+
 List<Product> product = [];
   @override
   void initState() {
@@ -51,8 +53,8 @@ List<Product> product = [];
     print("user hoooo ${widget.user.firstName}");
     _pages = [
       ProductsList(),
-           PostsTab(),
-      CartsTab(user: widget.user),
+     
+   
       ProfileTab(
         user: widget.user,
       ),
@@ -189,7 +191,7 @@ List<Product> product = [];
                          onPressed: () {
                            setState(() {
                              SharedPreferenecesService.removeString(key: "token");
-                 
+                  SharedPreferenecesService.removeString(key: "currentUser");
                              context.go("/login");                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("logged out"),backgroundColor: Colors.red,));
                  
                  
@@ -213,16 +215,17 @@ List<Product> product = [];
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(width: 50,),
                 Container(
                   height: height * .1,
-                  width: width * .40,
+                  width: width * .60,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       onChanged: (value) {
                         FilterProductStateModel filterState =
                             context.read<FilterProductsCubit>().state;
-
+    
                         BlocProvider.of<ProductsBloc>(context).add(
                           FetchProducts(
                             filterModel: filterState.copyWith(
@@ -251,7 +254,7 @@ List<Product> product = [];
                     setState(() {
                       FilterProductStateModel filterState =
                           context.read<FilterProductsCubit>().state;
-
+    
                       BlocProvider.of<ProductsBloc>(context).add(
                         FetchProducts(
                           filterModel: filterState.copyWith(
@@ -269,17 +272,14 @@ List<Product> product = [];
                   onPressed: _filter,
                   icon: Icon(Icons.select_all_outlined),
                 ),
-
-                SizedBox(
-                  width: width*.12,
-                  child: LottieBuilder.network("https://lottie.host/95700c24-bfef-4faa-a3ec-a1e47582c2d9/hUkHNSyQXU.json"),
-                )
-
-
+    
+              
+    
+    
               ],
             ),
           ),
-
+    
         ],
       ),
       body: _pages[_selectedIndex],
@@ -290,14 +290,8 @@ List<Product> product = [];
             label: "Home",
             icon: Icon(Icons.home,color: Colors.black,),
           ),
-           BottomNavigationBarItem(
-            label: "Posts",
-            icon: Icon(Icons.social_distance_outlined,color: Colors.black,),
-          ),
-          BottomNavigationBarItem(
-            label: "Cart",
-            icon: Icon(Icons.shopping_cart,color: Colors.black,),
-          ),
+        
+       
           BottomNavigationBarItem(
             label: "Profile",
             icon: Icon(Icons.person,color: Colors.black,),
@@ -315,10 +309,15 @@ List<Product> product = [];
         backgroundColor: Colors.orange,
         onPressed: () {
         
-                          context.push("/addPost");
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> CartsTab(user: widget.user)));
         
         },
-        child: Icon(Icons.add_business_outlined),
+        child: Stack(
+          children: [
+         
+            Icon(Icons.shopping_cart),
+          ],
+        ),
       ),
     );
   }

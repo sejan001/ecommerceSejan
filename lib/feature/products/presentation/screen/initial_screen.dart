@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,11 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   void checkToken() async {
-    final token = await SharedPreferenecesService.getString(key: 'token');
+
     final userJson =
         await SharedPreferenecesService.getString(key: "currentUser");
 
-    if (token != null && userJson != null) {
+    if ( userJson != null) {
       final user = User.fromJson(jsonDecode(userJson));
       GoRouter.of(context)
           .go("/homeScreen/${Uri.encodeComponent(jsonEncode(user.toJson()))}");
@@ -113,8 +114,12 @@ class _InitialScreenState extends State<InitialScreen> {
             if (dotPosition == 2)
               Center(
                   child: TextButton(
-                onPressed: () {
-                  context.go("/login");
+                onPressed: () async{
+                 final userJson =
+        await SharedPreferenecesService.getString(key: "currentUser");
+
+                  // context.go("/login");
+                  log(userJson.toString());
                 },
                 child: Text(
                   "Lets Go!",

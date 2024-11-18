@@ -242,10 +242,7 @@ class _ProductsListState extends State<ProductsList> {
                                     }
                                   },
                                   icon: showCartGif
-                                      ? SizedBox(
-                                          height: 60,
-                                          child: LottieBuilder.network(
-                                              "https://lottie.host/01a8a168-ad27-4b34-bbe6-3914326d5635/Q1lHGGbZmv.json"))
+                                      ? Icon(Icons.favorite)
                                       : Icon(Icons.favorite_border),
                                 ),
                               ),

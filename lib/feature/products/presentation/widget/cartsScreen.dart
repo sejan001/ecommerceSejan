@@ -99,6 +99,7 @@ userCart.discountedTotal = userCart.products.fold(0, (sum, p)=>sum + (p.total *p
   Widget build(BuildContext context) {
     final userCart = _cart!.carts.firstWhere((c)=> c.userId == widget.user.id);
     return Scaffold(
+      appBar: AppBar(title: Text("My Cart",style: TextStyle(fontWeight: FontWeight.bold),),),
       body: SingleChildScrollView(
         child: Stack(
           children: [

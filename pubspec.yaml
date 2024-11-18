@@ -54,6 +54,7 @@ dependencies:
   liquid_swipe: ^3.1.0
   line_icons: ^2.0.3
   uuid: ^4.4.2
+  pull_to_refresh_flutter3: ^2.0.2
   
   
 
