@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:project_bloc/feature/carts/model/cart_model.dart';
 import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
+import 'package:project_bloc/home_screen.dart';
 
 class CartsTab extends StatefulWidget {
   final User user;
@@ -100,12 +102,12 @@ userCart.discountedTotal = userCart.products.fold(0, (sum, p)=>sum + (p.total *p
     final userCart = _cart!.carts.firstWhere((c)=> c.userId == widget.user.id);
     return Scaffold(
       appBar: AppBar(title: Text("My Cart",style: TextStyle(fontWeight: FontWeight.bold),),),
-      body: SingleChildScrollView(
+      body:_cart!.carts[0].products.isEmpty ||  _cart!.carts[0].products   == null
+                ? Center(child: Text('Your cart is empty',style: TextStyle(fontSize: 15.sp),))
+                :  SingleChildScrollView(
         child: Stack(
           children: [
-            _cart == null
-                ? Center(child: Text('Your cart is empty'))
-                : Column(
+             Column(
                   children: [
                     StatefulBuilder(
                       builder: (context,setState) {
@@ -192,7 +194,7 @@ userCart.discountedTotal = userCart.products.fold(0, (sum, p)=>sum + (p.total *p
                       }
                     ),
                       SizedBox(height: 20,),
-                        Container(
+                  _cart!.carts[0].products.isEmpty ||  _cart!.carts[0].products  == null ? SizedBox.shrink():      Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Column(
