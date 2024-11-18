@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
-import '../../domain/model/complex_user_model.dart';
+import '../../../../auth/model/complex_user_model.dart';
 
 class UserProfile extends StatefulWidget {
   final Users user;

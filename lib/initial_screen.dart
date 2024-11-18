@@ -5,7 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 class InitialScreen extends StatefulWidget {

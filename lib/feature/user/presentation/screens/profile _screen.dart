@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:lottie/lottie.dart';
 
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
-import 'package:project_bloc/feature/products/presentation/screen/user_details_screen.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
+import 'package:project_bloc/feature/user/presentation/screens/user_details_screen.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filterusers_cubit.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/users_bloc.dart';

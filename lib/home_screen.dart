@@ -10,19 +10,19 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
 
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
+import 'package:project_bloc/feature/carts/model/cart_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_bloc.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_events.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_bloc.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_events.dart';
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
-import 'package:project_bloc/feature/products/presentation/widget/cartsScreen.dart';
+import 'package:project_bloc/feature/carts/widgets/cartsScreen.dart';
 
 
 import 'package:project_bloc/feature/products/presentation/widget/products_list.dart';
-import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
+import 'package:project_bloc/feature/user/presentation/screens/profile%20_screen.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -334,8 +334,9 @@ List<Product> product = [];
         
         },
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center ,
           children: [
-         9.horizontalSpace,
+        
             Icon(Icons.shopping_cart),
            cartNo != "0" ? Container(
               height: 20,

@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_bloc.dart';
-import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
-import 'package:project_bloc/feature/products/presentation/bloc/carts_bloc.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_bloc.dart';
+import 'package:project_bloc/auth/bloc/auth_bloc.dart';
+import 'package:project_bloc/feature/carts/presentation/cart_bloc/carts_bloc.dart';
 
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';
 

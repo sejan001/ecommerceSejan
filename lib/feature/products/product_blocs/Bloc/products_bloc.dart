@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:project_bloc/feature/products/domain/repo/product_repo.dart';
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_events.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_state.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_events.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_state.dart';
 
 
 import 'package:project_bloc/feature/products/presentation/cubit/search_products_cubit.dart';

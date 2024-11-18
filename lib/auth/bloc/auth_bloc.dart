@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 
 import 'package:project_bloc/feature/products/domain/repo/product_repo.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';

@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
-import 'package:project_bloc/feature/products/presentation/auth/bloc/login_screen.dart';
-import 'package:project_bloc/feature/products/presentation/screen/add_posts_screen.dart';
-import 'package:project_bloc/feature/products/presentation/screen/home_screen.dart';
-import 'package:project_bloc/feature/products/presentation/screen/initial_screen.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
+import 'package:project_bloc/auth/bloc/login_screen.dart';
+
+import 'package:project_bloc/home_screen.dart';
+import 'package:project_bloc/initial_screen.dart';
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
-import 'package:project_bloc/feature/products/presentation/widget/profile%20_screen.dart';
+import 'package:project_bloc/feature/user/presentation/screens/profile%20_screen.dart';
 
 class MyAppRouter extends StatelessWidget {
   MyAppRouter({super.key});
@@ -37,7 +37,7 @@ class MyAppRouter extends StatelessWidget {
           return HomeScreen(user: user);
         }),
     GoRoute(path: "/login", builder: (context, state) => Login()),
-        GoRoute(path: "/addPost", builder: (context, state) => AddPosts()),
+     
     GoRoute(
         path: "/profileTab:user",
         builder: (context, state) {

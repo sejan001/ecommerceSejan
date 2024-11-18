@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_bloc/feature/products/presentation/auth/bloc/auth_bloc.dart';
+import 'package:project_bloc/auth/bloc/auth_bloc.dart';
 
 void main() {
   runApp(MaterialApp(

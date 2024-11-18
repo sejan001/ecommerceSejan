@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
+import 'package:project_bloc/feature/carts/model/cart_model.dart';
 import 'package:project_bloc/feature/products/domain/repo/product_repo.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
-import 'package:project_bloc/feature/products/presentation/bloc/carts_event.dart';
+import 'package:project_bloc/feature/carts/presentation/cart_bloc/carts_event.dart';
 
 part 'carts_state.dart';
 

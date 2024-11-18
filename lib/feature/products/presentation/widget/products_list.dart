@@ -5,11 +5,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/carts/model/cart_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_bloc.dart';
-import 'package:project_bloc/feature/products/presentation/Products/Bloc/products_state.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_bloc.dart';
+import 'package:project_bloc/feature/products/product_blocs/Bloc/products_state.dart';
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,9 +29,9 @@ class _ProductsListState extends State<ProductsList> {
   int? cartProduct;
   int _currentPage = 0;
   List<String> images = [
-    'https://img.freepik.com/free-psd/banner-shopping-sale-template_23-2148797677.jpg',
-    "https://img.freepik.com/free-vector/abstract-colorful-sales-banner_52683-27977.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707696000&semt=ais",
-    "https://img.freepik.com/premium-vector/online-shopping-banner_268722-565.jpg"
+    'https://img.freepik.com/premium-vector/vector-gradient-blue-colored-sale-banner-sale-banner-discount-promotion-blue-background-concept_497837-1635.jpg',
+    "https://t4.ftcdn.net/jpg/06/95/44/49/360_F_695444999_u7jr5p6NJKsZAOGGwZqzevKRF8o9UDkT.jpg",
+    "https://as2.ftcdn.net/v2/jpg/02/10/60/47/1000_F_210604798_L1oeENismr3DpyhYGd9mMT8WhNcuqoi1.jpg"
   ];
 
   @override
@@ -97,7 +97,7 @@ class _ProductsListState extends State<ProductsList> {
               builder: (context, state) {
                 if (state is ProductsLoading) {
                   return Center(
-                    child: Container(
+                    child: Container( 
                       height: height * 0.1,
                       child: LottieBuilder.network(
                           "https://lottie.host/63f09589-a540-4e4d-89cc-b50c59978a5e/t6tMUb4x2i.json"),

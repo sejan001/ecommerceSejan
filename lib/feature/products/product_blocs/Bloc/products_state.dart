@@ -1,4 +1,4 @@
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
+import 'package:project_bloc/feature/carts/model/cart_model.dart'
     as C;
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
 

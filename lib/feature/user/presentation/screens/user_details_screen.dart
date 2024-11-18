@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:lottie/lottie.dart';
-import 'package:project_bloc/feature/products/domain/model/complex_user_model.dart';
+import 'package:project_bloc/auth/model/complex_user_model.dart';
 
 
 

@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart'
+import 'package:project_bloc/feature/carts/model/cart_model.dart'
     as C;
 
-import 'package:project_bloc/feature/products/domain/model/complex_user_model.dart';
+import 'package:project_bloc/auth/model/complex_user_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/filter_product_state_model.dart';
 
 import 'package:project_bloc/feature/products/domain/model/product_model.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 import 'package:project_bloc/feature/products/presentation/users/bloc/cubit/filter_users_state.dart';
 

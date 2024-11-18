@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:project_bloc/feature/products/domain/model/cart_model.dart';
-import 'package:project_bloc/feature/products/domain/model/user_model.dart';
+import 'package:project_bloc/feature/carts/model/cart_model.dart';
+import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
