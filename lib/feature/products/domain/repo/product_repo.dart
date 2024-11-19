@@ -147,8 +147,27 @@ class RepoProvider {
       throw Exception('Error fetching carts: $e');
     }
   }
+   Future<void> deleteCart(int cartId) async {
+    String cartUrl = '$cartAPI/$cartId';
 
-  Future<C.UserCartResponse> addCart({
+    try {
+      final response = await http.delete(Uri.parse(cartUrl));
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+     
+        print("Cart deleted successfully");
+        print(response.body);
+      } else {
+        print("Failed to delete cart. Status code: ${response.statusCode}");
+        throw Exception('Failed to delete cart');
+      }
+    } catch (e) {
+      print("Error deleting cart: $e");
+      throw Exception('Error deleting cart: $e');
+    }
+  }
+
+  Future<C.UserCartResponse>  addCart({
     required int? id,
     required String? title,
     required double? price,

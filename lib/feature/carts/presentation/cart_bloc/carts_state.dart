@@ -22,3 +22,4 @@ class CartsError extends CartsState {
 }
 
 class CartsLoading extends CartsState {}
+class CartDeletedSuccessfully extends CartsState {}

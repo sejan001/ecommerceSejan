@@ -7,7 +7,7 @@ import 'package:project_bloc/auth/model/user_model.dart';
 import 'package:project_bloc/feature/products/domain/services/shared_prefereneces_service.dart';
 
 import 'package:project_bloc/feature/products/presentation/screen/product_details_screen.dart';
-import 'package:project_bloc/home_screen.dart';
+
 
 class CartsTab extends StatefulWidget {
   final User user;
@@ -115,7 +115,7 @@ userCart.discountedTotal = userCart.products.fold(0, (sum, p)=>sum + (p.total *p
                             shrinkWrap: true,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
+                              mainAxisSpacing: 5, 
                               crossAxisCount: 2,
                             ),
                             itemCount: totalProducts!.length,
@@ -133,7 +133,7 @@ userCart.discountedTotal = userCart.products.fold(0, (sum, p)=>sum + (p.total *p
                                 child: Card(
                                   borderOnForeground: true,
                                   elevation: 10,
-                                  shadowColor: Colors.orange,
+                                  shadowColor: Colors.orange,     
                                   child: Column(
                                     children: [
                                       Row(

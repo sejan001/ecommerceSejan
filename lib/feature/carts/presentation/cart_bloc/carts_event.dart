@@ -38,3 +38,7 @@ class AddProduct extends CartsEvent {
       required this.thumbnail,
       required this.userId});
 }
+class DeleteCart extends CartsEvent {
+  final int cartId;
+  const DeleteCart({required this.cartId});
+} 

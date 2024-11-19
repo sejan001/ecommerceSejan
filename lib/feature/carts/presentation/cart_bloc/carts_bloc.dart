@@ -54,4 +54,14 @@ print("aaaaaakoo carts ${carts.carts}");
       emit(CartsError("carts loaded state error $e"));
     }
   }
+   Future<void> _deleteCart(DeleteCart event, Emitter<CartsState> emit) async {
+    emit(CartsLoading());
+    try {
+   
+      await RepoProvider().deleteCart(event.cartId);
+      emit(CartDeletedSuccessfully()); 
+    } catch (e) {
+      emit(CartsError("Error deleting cart: $e"));
+    }
+  }
 }
